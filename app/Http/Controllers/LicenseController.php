@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\License;
+use App\Http\Requests\LicenseRequest;
 
 class LicenseController extends Controller
 {
@@ -36,18 +37,28 @@ class LicenseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LicenseRequest $request)
     {
-        $license = new License;
-        $license->genre = $request->genre;
-        $license->name = $request->name;
-        $license->grade = $request->grade;
-        $license->exam_date = $request->exam_date;
-        $license->fee = $request->fee;
-        $license->status = $request->status;
-        $license->save();
+        // $request->validate([
+        //     'genre' => ['max:255'],
+        //     'name' => ['required', 'max:40'],
+        //     'grade' => [],
+        //     'exam_date' => ['required'],
+        //     'fee' => [],
+        //     'status' => [],
+        // ]);
 
-        return to_route('license.index');
+        License::create([
+            'genre' => $request->genre,
+            'name' => $request->name,
+            'grade' => $request->grade,
+            'exam_date' => $request->exam_date,
+            'fee' => $request->fee,
+            'status' => $request->status,
+            // $license->save();
+        ]);
+
+        return to_route('licenses.index');
     }
 
     /**
