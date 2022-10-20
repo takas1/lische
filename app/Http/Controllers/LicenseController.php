@@ -38,7 +38,16 @@ class LicenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $license = new License;
+        $license->genre = $request->genre;
+        $license->name = $request->name;
+        $license->grade = $request->grade;
+        $license->exam_date = $request->exam_date;
+        $license->fee = $request->fee;
+        $license->status = $request->status;
+        $license->save();
+
+        return to_route('license.index');
     }
 
     /**

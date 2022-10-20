@@ -19,10 +19,18 @@ class LicenseSeeder extends Seeder
             [
                 'genre' => '法律',
                 'name' => 'ビジネス実務法務検定',
-                'grade' => '1級',
+                'grade' => '',
                 'exam_date' => '2022/12/9',
                 'fee' => 7500,
-                'status' => '受験予定',
+                'status' => '受験する',
+            ],
+            [
+                'genre' => '法律',
+                'name' => 'ビジネス実務法務検定',
+                'grade' => 'アドバンス',
+                'exam_date' => '2022/12/9',
+                'fee' => 7500,
+                'status' => '受験しない',
             ],
             [
                 'genre' => '法律',
@@ -30,7 +38,7 @@ class LicenseSeeder extends Seeder
                 'grade' => '1級',
                 'exam_date' => '2022/12/9',
                 'fee' => 7500,
-                'status' => '受験予定',
+                'status' => '考え中',
             ],
             [
                 'genre' => '法律',
@@ -38,7 +46,15 @@ class LicenseSeeder extends Seeder
                 'grade' => '1級',
                 'exam_date' => '2022/12/9',
                 'fee' => 7500,
-                'status' => '受験予定',
+                'status' => '',
+            ],
+            [
+                'genre' => '法律',
+                'name' => 'ビジネス実務法務検定',
+                'grade' => 'エキスパート',
+                'exam_date' => '2022/12/9',
+                'fee' => 7500,
+                'status' => '',
             ],
             [
                 'genre' => '法律',
@@ -46,23 +62,7 @@ class LicenseSeeder extends Seeder
                 'grade' => '1級',
                 'exam_date' => '2022/12/9',
                 'fee' => 7500,
-                'status' => '受験予定',
-            ],
-            [
-                'genre' => '法律',
-                'name' => 'ビジネス実務法務検定',
-                'grade' => '1級',
-                'exam_date' => '2022/12/9',
-                'fee' => 7500,
-                'status' => '受験予定',
-            ],
-            [
-                'genre' => '法律',
-                'name' => 'ビジネス実務法務検定',
-                'grade' => '1級',
-                'exam_date' => '2022/12/9',
-                'fee' => 7500,
-                'status' => '受験予定',
+                'status' => '受験する',
             ]
         ]);
     }

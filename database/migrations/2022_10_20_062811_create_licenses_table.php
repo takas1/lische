@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('genre');
             $table->string('name');
-            $table->string('grade');
+            $table->string('grade')->nullable();
             $table->date('exam_date')->nullable();
-            $table->integer('fee');
+            $table->integer('fee')->nullable();
             $table->string('status');
             $table->timestamps();
         });
