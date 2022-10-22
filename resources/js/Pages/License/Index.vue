@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="資格一覧" />
 
     <AuthenticatedLayout>
         <template #header>

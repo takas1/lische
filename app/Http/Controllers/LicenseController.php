@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\License;
 use App\Http\Requests\LicenseRequest;
+use App\Models\Genre;
+use App\Models\Grade;
+use App\Models\Status;
 
 class LicenseController extends Controller
 {
@@ -17,8 +20,9 @@ class LicenseController extends Controller
     public function index()
     {
         $licenses = License::all();
+        $genres = Genre::all();
         // dd($licenses);
-        return Inertia::render('License/Index',[ 'licenses' => $licenses]);
+        return Inertia::render('License/Index',[ 'licenses' => $licenses, 'genres' => $genres ]);
     }
 
     /**
@@ -28,7 +32,17 @@ class LicenseController extends Controller
      */
     public function create()
     {
-        return Inertia::render('License/Create');
+        $genres = Genre::all();
+        $grades = Grade::all();
+        $statuses = Status::all();
+
+        return Inertia::render('License/Create',
+            [
+                'genres' => $genres,
+                'grades' => $grades,
+                'statuses' => $statuses
+            ]
+        );
     }
 
     /**

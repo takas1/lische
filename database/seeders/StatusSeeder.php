@@ -15,7 +15,7 @@ class StatusSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('grades')->insert([
+        DB::table('statuses')->insert([
             ['plan' => '受験する'],
             ['plan' => '検討中'],
             ['plan' => '受験しない'],

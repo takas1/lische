@@ -7,16 +7,18 @@ import InputError from '@/Components/InputError.vue';
 
 defineProps({
     errors: Object,
-    genres: Array
+    genres: Array,
+    grades: Array,
+    statuses: Array,
 })
 
 const form = reactive({
-    genre: null,
+    genre_id: null,
     name: null,
-    grade: null,
+    grade_id: null,
     exam_date: null,
     fee: null,
-    status: null
+    status_id: null
 })
 
 const storeLicense = () => {
@@ -41,16 +43,17 @@ const storeLicense = () => {
                     <div class="p-6 bg-white border-b border-gray-200">
                         <section class="text-gray-600 body-font relative">
                             <div class="container px-5 py-4 mx-auto">
+                                <InputError class="mt-2" :message="form.errors" />
                                 <form @submit.prevent="storeLicense">
                                     <div class="md:w-2/3 mx-auto">
                                         <div class="flex flex-wrap -m-2">
                                             <div class="p-2 md:w-1/3 w-full">
                                                 <div class="relative">
                                                     <label for="genre" class="leading-7 text-sm text-gray-600">ジャンル</label>
-                                                    <select type="text" id="genre" name="genre" v-model="form.genre" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    <select name="genre" v-model="form.genre_id" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                         <!-- <option v-for="option in options" :value="option.value"> -->
-                                                        <option v-for="janru in janrus" value="janru.value">
-                                                            {{ janru.text }}
+                                                        <option v-for="genre in genres" :value="genre.id" :key="genre.id">
+                                                            {{ genre.id }} : {{ genre.name }}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -60,12 +63,15 @@ const storeLicense = () => {
                                                     <label for="name" class="leading-7 text-sm text-gray-600">資格名</label>
                                                     <input type="text" id="name" name="name" v-model="form.name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                 </div>
-                                            <!-- <InputError class="mt-2" :message="form.errors.name" /> -->
+                                            <div v-if="errors.name">{{ errors.name }}</div>
                                             </div>
                                             <div class="p-2 md:w-1/3 w-full">
                                                 <div class="relative">
                                                     <label for="grade" class="leading-7 text-sm text-gray-600">級</label>
-                                                    <select type="text" id="grade" name="grade" v-model="form.grade" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    <select name="grade" v-model="form.grade_id" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        <option v-for="grade in grades" :value="grade.id" :key="grade.id">
+                                                            {{ grade.id }} : {{ grade.level }}
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -84,7 +90,11 @@ const storeLicense = () => {
                                             <div class="p-2  md:w-1/4 w-full">
                                                 <div class="relative">
                                                     <label for="status" class="leading-7 text-sm text-gray-600">受験予定</label>
-                                                    <input type="text" id="status" name="status" v-model="form.status" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    <select name="status" v-model="form.status" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        <option v-for="status in statuses" :value="status.id" :key="status.id">
+                                                            {{ status.id }} : {{ status.plan }}
+                                                        </option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="p-2 w-full">

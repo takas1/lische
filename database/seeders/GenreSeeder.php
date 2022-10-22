@@ -16,7 +16,7 @@ class GenreSeeder extends Seeder
     public function run()
     {
         DB::table('genres')->insert([
-            ['name' => '法律'],
+            ['name' => '法律・経営'],
             ['name' => 'IT・クリエイティブ'],
             ['name' => '会計・事務'],
             ['name' => '語学'],
