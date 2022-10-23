@@ -38,12 +38,12 @@ defineProps({
                                 </thead>
                                 <tbody>
                                     <tr v-for="license in licenses" :key="license.id">
-                                        <td class="px-2 py-3">{{ license.genre }}</td>
+                                        <td class="px-2 py-3">{{ license.genre_id }}</td>
                                         <td class="px-2 py-3">{{ license.name }}</td>
-                                        <td class="px-2 py-3">{{ license.grade }}</td>
+                                        <td class="px-2 py-3">{{ license.grade_id }}</td>
                                         <td class="px-2 py-3">{{ license.exam_date }}</td>
                                         <td class="px-2 py-3">{{ license.fee }}</td>
-                                        <td class="px-2 py-3">{{ license.status }}</td>
+                                        <td class="px-2 py-3">{{ license.status_id }}</td>
                                     </tr>
                                 </tbody>
                             </table>

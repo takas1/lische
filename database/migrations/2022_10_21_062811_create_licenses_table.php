@@ -15,12 +15,16 @@ return new class extends Migration
     {
         Schema::create('licenses', function (Blueprint $table) {
             $table->id();
-            $table->string('genre');
             $table->string('name');
-            $table->string('grade')->nullable();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('genre_id')->constrained('genres');
+            $table->foreignId('grade_id')->constrained('grades');
+            $table->foreignId('status_id')->constrained('statuses');
+            // $table->string('genre');
+            // $table->string('grade')->nullable();
             $table->date('exam_date')->nullable();
             $table->integer('fee')->nullable();
-            $table->string('status');
+            // $table->string('status');
             $table->timestamps();
         });
     }

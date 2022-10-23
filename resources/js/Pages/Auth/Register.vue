@@ -23,7 +23,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Register" />
+        <Head title="新規登録" />
 
         <form @submit.prevent="submit">
             <div>
