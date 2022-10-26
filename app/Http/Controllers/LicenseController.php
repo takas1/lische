@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Requests\LicenseRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Models\License;
 use App\Models\Genre;
 use App\Models\Grade;
 use App\Models\Status;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class LicenseController extends Controller
 {
@@ -20,12 +22,20 @@ class LicenseController extends Controller
      */
     public function index()
     {
-        $licenses = DB::table('licenses')->select('id', 'name', 'genre_id', 'grade_id', 'exam_date', 'fee', 'status_id')->get();
-        // $licenses = DB::table('licenses')->select('id', 'name', 'genre_id', 'grade_id', 'exam_date', 'fee', 'status_id')->paginate(25);
+        $licenses = DB::table('licenses')->where('user_id', Auth::id())
+                                         ->select('id', 'name', 'genre_id', 'grade_id', 'exam_date', 'fee', 'status_id')
+                                         ->get();
         $genres = Genre::all();
-        // dd($licenses, $genres);
-        // dd($genres);
-        return Inertia::render('License/Index', [ 'licenses' => $licenses, 'genres' => $genres ]);
+        $grades = Grade::all();
+        $statuses = Status::all();
+
+        return Inertia::render('License/Index',
+                                [
+                                    'licenses' => $licenses,
+                                    'genres' => $genres,
+                                    'grades' => $grades,
+                                    'statuses' => $statuses,
+                                 ]);
     }
 
     /**
@@ -38,8 +48,6 @@ class LicenseController extends Controller
         $genres = DB::table('genres')->select('id', 'name')->get();
         $grades = DB::table('grades')->select('id', 'level')->get();
         $statuses = DB::table('statuses')->select('id', 'plan')->get();
-        // $grades = Grade:: select('id', 'level')->get();
-        // $statuses = Status::select('id', 'plan')->get();
 
         return Inertia::render('License/Create',
             [
@@ -58,23 +66,14 @@ class LicenseController extends Controller
      */
     public function store(LicenseRequest $request)
     {
-        // $request->validate([
-        //     'genre' => ['max:255'],
-        //     'name' => ['required', 'max:40'],
-        //     'grade' => [],
-        //     'exam_date' => ['required'],
-        //     'fee' => [],
-        //     'status' => [],
-        // ]);
-dd($request);
         License::create([
-            'genre' => $request->genre_id,
+            'user_id' => Auth::id(),
+            'genre_id' => $request->genre_id,
             'name' => $request->name,
-            'grade' => $request->grade_id,
+            'grade_id' => $request->grade_id,
             'exam_date' => $request->exam_date,
             'fee' => $request->fee,
-            'status' => $request->status_id,
-            // $license->save();
+            'status_id' => $request->status_id,
         ]);
 
         return to_route('licenses.index');
@@ -86,9 +85,20 @@ dd($request);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(license $license)
     {
-        //
+        $genre = Genre::where('id', $license->genre_id)->select('id', 'name')->first();
+        $grade = Grade::where('id', $license->grade_id)->select('id', 'level')->first();
+        $status = Status::where('id', $license->status_id)->select('id', 'plan')->first();
+
+        return Inertia::render('License/Show',
+            [
+                'license' => $license,
+                'genre' => $genre,
+                'grade' => $grade,
+                'status' => $status
+            ]
+        );
     }
 
     /**
@@ -97,9 +107,19 @@ dd($request);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(license $license)
     {
-        //
+        // dd($license);
+        $genres = DB::table('genres')->select('id', 'name')->get();
+        $grades = DB::table('grades')->select('id', 'level')->get();
+        $statuses = DB::table('statuses')->select('id', 'plan')->get();
+// dd($license, $genres);
+        return Inertia::render('License/Edit', [
+            'license' => $license,
+            'genres' => $genres,
+            'grades' => $grades,
+            'statuses' => $statuses
+        ]);
     }
 
     /**
@@ -109,9 +129,23 @@ dd($request);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, License $license)
     {
-        //
+        // dd($license->name);
+
+        $license->genre_id = $request->genre_id;
+        $license->name = $request->name;
+        $license->grade_id = $request->grade_id;
+        $license->exam_date = $request->exam_date;
+        $license->fee = $request->fee;
+        $license->status_id = $request->status_id;
+        $license->save();
+
+        return to_route('licenses.index')
+            ->with([
+                'message' => '更新しました。',
+                'status' => 'success'
+        ]);
     }
 
     /**
@@ -120,8 +154,14 @@ dd($request);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(License $license)
     {
-        //
+        $license->delete();
+
+        return to_route('licenses.index')
+        ->with([
+            'message' => '削除しました。',
+            'status' => 'danger'
+        ]);
     }
 }

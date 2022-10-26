@@ -6,35 +6,37 @@ import { Inertia } from '@inertiajs/inertia';
 import InputError from '@/Components/InputError.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
 
-defineProps({
-    errors: Object,
-    genres: Object,
-    grades: Object,
-    statuses: Object,
+const props = defineProps({
+                errors: Object,
+                license: Object,
+                genres: Object,
+                grades: Object,
+                statuses: Object
 })
 
 const form = reactive({
-    genre_id: null,
-    name: null,
-    grade_id: null,
-    exam_date: null,
-    fee: null,
-    status_id: null
+    id: props.license.id,
+    genre_id: props.license.genre_id,
+    name: props.license.name,
+    grade_id: props.license.grade_id,
+    exam_date: props.license.exam_date,
+    fee: props.license.fee,
+    status_id: props.license.status_id
 })
 
-const storeLicense = () => {
-    Inertia.post(route('licenses.store'), form)
+const updateLicense = id => {
+    Inertia.put(route('licenses.update',{license:id}), form)
 }
 
 </script>
 
 <template>
-    <Head title="資格を追加" />
+    <Head title="資格を編集" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                資格を追加
+                資格を編集
             </h2>
         </template>
 
@@ -45,7 +47,8 @@ const storeLicense = () => {
                         <BreezeValidationErrors class="mb-4" />
                         <section class="text-gray-600 body-font relative">
                             <div class="container px-5 py-4 mx-auto">
-                                <form @submit.prevent="storeLicense">
+                                <!-- <InputError class="mt-2" :message="form.errors.name" /> -->
+                                <form @submit.prevent="updateLicense(form.id)">
                                     <div class="md:w-2/3 mx-auto">
                                         <div class="flex flex-wrap -m-2">
                                             <div class="p-2 md:w-1/3 w-full">
@@ -101,9 +104,10 @@ const storeLicense = () => {
                                             <!-- <Link as="button" :href="route('licenses.index')" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                                                 登録
                                             </Link> -->
-                                                <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                                                    登録
-                                                </button>
+                                                <!-- <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                                    更新
+                                                </button> -->
+                                                <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
                                                 <!-- <Link as="button" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                                                     登録
                                                 </Link> -->

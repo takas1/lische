@@ -133,4 +133,10 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'attributes' => [
+        'name' => '資格名',
+        'genre_id' => 'ジャンル',
+        'grade_id' => '級',
+        'status_id' => '受験予定',
+    ],
 ];

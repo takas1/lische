@@ -3,7 +3,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
 defineProps({
-    licenses: Array
+    licenses: Object,
+    genres: Object,
+    grades: Object,
+    statuses: Object
 })
 </script>
 
@@ -38,12 +41,18 @@ defineProps({
                                 </thead>
                                 <tbody>
                                     <tr v-for="license in licenses" :key="license.id">
-                                        <td class="px-2 py-3">{{ license.genre_id }}</td>
-                                        <td class="px-2 py-3">{{ license.name }}</td>
-                                        <td class="px-2 py-3">{{ license.grade_id }}</td>
+                                        <!-- <td class="px-2 py-3">{{ genres[1]['name'] }}</td> -->
+                                        <td class="px-2 py-3">{{ genres[license.genre_id-1]['name'] }}</td>
+                                        <!-- <td class="px-2 py-3">{{ license.genre_id }}</td> -->
+                                        <td class="px-2 py-3"><Link :href="route('licenses.show', {license: license.id})" class="text-blue-600">{{ license.name }}</Link></td>
+                                        <!-- <td class="px-2 py-3">{{ license.grade_id }}</td> -->
+                                        <td class="px-2 py-3">{{ grades[license.grade_id-1]['level'] }}</td>
+                                        <!-- <td class="px-2 py-3">{{ grades[1]['level'] }}</td> -->
                                         <td class="px-2 py-3">{{ license.exam_date }}</td>
                                         <td class="px-2 py-3">{{ license.fee }}</td>
-                                        <td class="px-2 py-3">{{ license.status_id }}</td>
+                                        <!-- <td class="px-2 py-3">{{ license.status_id }}</td> -->
+                                        <!-- <td class="px-2 py-3">{{ statuses[1-1]['plan'] }}</td> -->
+                                        <td class="px-2 py-3">{{ statuses[license.status_id-1]['plan'] }}</td>
                                     </tr>
                                 </tbody>
                             </table>
