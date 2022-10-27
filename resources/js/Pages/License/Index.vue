@@ -1,6 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
+import Pagination from '@/Components/Pagination.vue';
+import { ref } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
+
 
 defineProps({
     licenses: Object,
@@ -8,6 +12,13 @@ defineProps({
     grades: Object,
     statuses: Object
 })
+
+const search = ref('')
+
+const searchLicenses = () => {
+    Inertia.get(route('licenses.index', { search: search.value }))
+}
+
 </script>
 
 <template>
@@ -27,6 +38,11 @@ defineProps({
                         <section class="text-gray-600 body-font">
                         <div class="container px-5 py-4 mx-auto">
                             <div class="w-full mx-auto overflow-auto">
+                                <div class="mb-6">
+                                    <input type="text" name="search" v-model="search" class="m-1  rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    <button class="bg-blue-300 text-white py-2 px-2"
+                                    @click="searchLicenses">検索</button>
+                                </div>
                             <table class="table-auto w-full text-left whitespace-no-wrap">
                                 <thead>
                                 <tr>
@@ -40,11 +56,11 @@ defineProps({
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="license in licenses" :key="license.id">
+                                    <tr v-for="license in licenses.data" :key="license.id">
                                         <!-- <td class="px-2 py-3">{{ genres[1]['name'] }}</td> -->
                                         <td class="px-2 py-3">{{ genres[license.genre_id-1]['name'] }}</td>
                                         <!-- <td class="px-2 py-3">{{ license.genre_id }}</td> -->
-                                        <td class="px-2 py-3"><Link :href="route('licenses.show', {license: license.id})" class="text-blue-600">{{ license.name }}</Link></td>
+                                        <td class="px-2 py-3"><Link :href="route('licenses.show', {license: license.id})" class="text-blue-600 hover:underline">{{ license.name }}</Link></td>
                                         <!-- <td class="px-2 py-3">{{ license.grade_id }}</td> -->
                                         <td class="px-2 py-3">{{ grades[license.grade_id-1]['level'] }}</td>
                                         <!-- <td class="px-2 py-3">{{ grades[1]['level'] }}</td> -->
@@ -61,6 +77,7 @@ defineProps({
                                 <Link as="button" :href="route('licenses.create')" class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">資格を追加</Link>
                             </div>
                         </div>
+                            <Pagination class="mt-6" :links="licenses.links"></Pagination>
                         </section>
                     </div>
                 </div>

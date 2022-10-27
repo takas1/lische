@@ -13,6 +13,16 @@ class License extends Model
 {
     use HasFactory;
 
+    public function scopeSearchLicenses($query, $input = null)
+    {
+        if (!empty($input)) {
+            if (License::where('name', 'like', $input . '%')
+                ->exists()) {
+                    return $query->where('name', 'like', $input . '%');
+            }
+        }
+    }
+
     protected $fillable = [
         'genre_id',
         'user_id',

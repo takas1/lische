@@ -25,12 +25,12 @@ class LicenseRequest extends FormRequest
     {
         return [
             // 'user_id' => ['required', 'numeric'],
-            'genre_id' => ['numeric', 'between:1,6'],
+            'genre_id' => ['required', 'numeric', 'between:1,6'],
             'name' => ['required', 'max:40'],
-            'grade_id' => ['numeric', 'between:1,5'],
-            'exam_date' => ['nullable', 'date'],
+            'grade_id' => ['required', 'numeric', 'between:1,5'],
+            'exam_date' => ['nullable'],
             'fee' => ['nullable', 'numeric', 'between:0,500000'],
-            'status_id' => ['numeric', 'between:1,3'],
+            'status_id' => ['required', 'numeric', 'between:1,3'],
         ];
     }
 }
