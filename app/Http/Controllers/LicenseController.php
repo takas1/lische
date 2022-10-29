@@ -27,19 +27,6 @@ class LicenseController extends Controller
             ->select('id', 'name', 'genre_id', 'grade_id', 'exam_date', 'fee', 'status_id')
             ->paginate(20);
 
-        // $licenses = License::sortAscExamDate()
-        //     ->where('user_id', Auth::id())
-        //     ->select('id', 'name', 'genre_id', 'grade_id', 'exam_date', 'fee', 'status_id')
-        //     ->orderBy('exam_date', 'desc')
-        //     ->paginate(20);
-
-        // $licenses = License::sortDescExamDate()
-        //     ->where('user_id', Auth::id())
-        //     ->select('id', 'name', 'genre_id', 'grade_id', 'exam_date', 'fee', 'status_id')
-        //     ->orderBy('exam_date', 'desc')
-        //     ->paginate(20);
-
-
         $genres = DB::table('genres')->select('id', 'name')->get();
         $grades = DB::table('grades')->select('id', 'level')->get();
         $statuses = DB::table('statuses')->select('id', 'plan')->get();

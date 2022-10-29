@@ -1,9 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/inertia-vue3';
 import { reactive } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import InputError from '@/Components/InputError.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
 
 defineProps({
@@ -53,7 +52,6 @@ const storeLicense = () => {
                                                 <div class="relative">
                                                     <label for="genre" class="leading-7 text-sm text-gray-600">ジャンル</label>
                                                     <select name="genre" v-model="form.genre_id" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                        <!-- <option v-for="option in options" :value="option.value"> -->
                                                         <option v-for="genre in genres" :value="genre.id" :key="genre.id">
                                                             {{ genre.id }} : {{ genre.name }}
                                                         </option>
@@ -84,7 +82,7 @@ const storeLicense = () => {
                                             </div>
                                             <div class="p-2  md:w-1/3 w-full">
                                                 <div class="relative">
-                                                    <label for="fee" class="leading-7 text-sm text-gray-600">受験料</label>
+                                                    <label for="fee" class="leading-7 text-sm text-gray-600">受験料（円）</label>
                                                     <input type="text" id="fee" name="fee" v-model="form.fee" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                 </div>
                                             </div>
@@ -105,15 +103,9 @@ const storeLicense = () => {
                                                 </div>
                                             </div>
                                             <div class="p-2 w-full">
-                                            <!-- <Link as="button" :href="route('licenses.index')" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                                                登録
-                                            </Link> -->
                                                 <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                                                     登録
                                                 </button>
-                                                <!-- <Link as="button" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                                                    登録
-                                                </Link> -->
                                             </div>
                                         </div>
                                     </div>

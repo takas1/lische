@@ -4,6 +4,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import Pagination from '@/Components/Pagination.vue';
 import { ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
+import dayjs from 'dayjs'
 
 
 defineProps({
@@ -18,14 +19,6 @@ const search = ref('')
 const searchLicenses = () => {
     Inertia.get(route('licenses.index', { search: search.value }))
 }
-
-// const sortAscExamDate = () => {
-//     Inertia.get(route('licenses.index'))
-// }
-
-// const sortDescExamDate = () => {
-//     Inertia.get(route('licenses.index'))
-// }
 
 </script>
 
@@ -51,10 +44,6 @@ const searchLicenses = () => {
                                         <button class="bg-gray-600 hover:bg-gray-500 text-white py-2 px-2"
                                         @click="searchLicenses">検索</button>
                                     </div>
-                                    <!-- <div><button class="bg-gray-600 hover:bg-gray-500 text-white py-2 px-2"
-                                        @click="sortAscExamDate">asc</button></div>
-                                    <div><button class="bg-gray-600 hover:bg-gray-500 text-white py-2 px-2"
-                                        @click="sortDescExamDate">desc</button></div> -->
                                     <table class="table-auto w-full text-left whitespace-no-wrap">
                                         <thead>
                                             <tr>
@@ -62,23 +51,18 @@ const searchLicenses = () => {
                                                 <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">資格名</th>
                                                 <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">級</th>
                                                 <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">試験日</th>
-                                                <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">料金</th>
+                                                <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">受験料</th>
                                                 <th class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">受験予定</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="license in licenses.data" :key="license.id">
-                                                <!-- <td class="px-2 py-3">{{ genres[1]['name'] }}</td> -->
                                                 <td class="px-2 py-3">{{ genres[license.genre_id-1]['name'] }}</td>
-                                                <!-- <td class="px-2 py-3">{{ license.genre_id }}</td> -->
                                                 <td class="px-2 py-3"><Link :href="route('licenses.show', {license: license.id})" class="text-blue-600 hover:underline">{{ license.name }}</Link></td>
-                                                <!-- <td class="px-2 py-3">{{ license.grade_id }}</td> -->
                                                 <td class="px-2 py-3">{{ grades[license.grade_id-1]['level'] }}</td>
-                                                <!-- <td class="px-2 py-3">{{ grades[1]['level'] }}</td> -->
-                                                <td class="px-2 py-3">{{ license.exam_date }}</td>
+                                                    <div v-if="license.exam_date === null">{{ license.exam_date }}</div>
+                                                    <div v-else="license.exam_date != null">{{ dayjs(license.exam_date).format('YYYY/MM/DD') }}</div>
                                                 <td class="px-2 py-3">{{ license.fee }}</td>
-                                                <!-- <td class="px-2 py-3">{{ license.status_id }}</td> -->
-                                                <!-- <td class="px-2 py-3">{{ statuses[1-1]['plan'] }}</td> -->
                                                 <td class="px-2 py-3">{{ statuses[license.status_id-1]['plan'] }}</td>
                                             </tr>
                                         </tbody>
@@ -96,27 +80,3 @@ const searchLicenses = () => {
         </div>
     </AuthenticatedLayout>
 </template>
-
-<!-- <template>
-  <main>
-    <header>
-      <Link href="/">Home</Link>
-      <Link href="/about">About</Link>
-      <Link href="/contact">Contact</Link>
-      aaa
-    </header>
-    <article>
-      <slot />
-    </article>
-  </main>
-</template>
-
-<script>
-import { Link } from '@inertiajs/inertia-vue3'
-
-export default {
-  components: {
-    Link,
-  }
-}
-</script> -->
