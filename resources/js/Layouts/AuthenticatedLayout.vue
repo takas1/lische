@@ -12,7 +12,7 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen -mb-8 bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,6 +33,9 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                                 <NavLink :href="route('licenses.index')" :active="route().current('licenses.index')">
                                     資格一覧
+                                </NavLink>
+                                <NavLink :href="route('sorted.index')" :active="route().current('sorted.index')">
+                                    受験予定
                                 </NavLink>
                             </div>
                         </div>
@@ -82,6 +85,9 @@ const showingNavigationDropdown = ref(false);
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('licenses.index')" :active="route().current('licenses.index')">
                             資格一覧
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('licenses.index')" :active="route().current('licenses.index')">
+                            受験予定
                         </ResponsiveNavLink>
                     </div>
 

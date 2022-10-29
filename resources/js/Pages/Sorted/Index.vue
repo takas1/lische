@@ -13,29 +13,15 @@ defineProps({
     statuses: Object
 })
 
-const search = ref('')
-
-const searchLicenses = () => {
-    Inertia.get(route('licenses.index', { search: search.value }))
-}
-
-// const sortAscExamDate = () => {
-//     Inertia.get(route('licenses.index'))
-// }
-
-// const sortDescExamDate = () => {
-//     Inertia.get(route('licenses.index'))
-// }
-
 </script>
 
 <template>
-    <Head title="資格一覧" />
+    <Head title="受験予定一覧" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                資格・検定一覧
+                受験予定一覧
             </h2>
         </template>
 
@@ -46,15 +32,6 @@ const searchLicenses = () => {
                         <section class="text-gray-600 body-font">
                             <div class="container px-5 py-4 mx-auto">
                                 <div class="w-full mx-auto overflow-auto">
-                                    <div class="mb-6">
-                                        <input type="text" name="search" v-model="search"  placeholder="資格名で検索" class="m-1  rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                        <button class="bg-gray-600 hover:bg-gray-500 text-white py-2 px-2"
-                                        @click="searchLicenses">検索</button>
-                                    </div>
-                                    <!-- <div><button class="bg-gray-600 hover:bg-gray-500 text-white py-2 px-2"
-                                        @click="sortAscExamDate">asc</button></div>
-                                    <div><button class="bg-gray-600 hover:bg-gray-500 text-white py-2 px-2"
-                                        @click="sortDescExamDate">desc</button></div> -->
                                     <table class="table-auto w-full text-left whitespace-no-wrap">
                                         <thead>
                                             <tr>
@@ -83,9 +60,6 @@ const searchLicenses = () => {
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
-                                <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
-                                    <Link as="button" :href="route('licenses.create')" class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">資格を追加</Link>
                                 </div>
                                 <Pagination class="mt-6" :links="licenses.links"></Pagination>
                             </div>

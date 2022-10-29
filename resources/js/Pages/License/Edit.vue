@@ -21,7 +21,8 @@ const form = reactive({
     grade_id: props.license.grade_id,
     exam_date: props.license.exam_date,
     fee: props.license.fee,
-    status_id: props.license.status_id
+    status_id: props.license.status_id,
+    memo: props.license.memo
 })
 
 const updateLicense = id => {
@@ -98,6 +99,12 @@ const updateLicense = id => {
                                                             {{ status.id }} : {{ status.plan }}
                                                         </option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="p-2 w-full">
+                                                <div class="relative">
+                                                    <label for="memo" class="leading-7 text-sm text-gray-600">メモ</label>
+                                                    <textarea name="memo" id="memo" v-model="form.memo" rows="8" class="w-full whitespace-pre-wrap bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ license.memo }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="p-2 w-full">

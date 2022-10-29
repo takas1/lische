@@ -22,22 +22,23 @@ class LicenseController extends Controller
      */
     public function index(Request $request)
     {
-        // $licenses = DB::table('licenses')->where('user_id', Auth::id())
-        //                                  ->select('id', 'name', 'genre_id', 'grade_id', 'exam_date', 'fee', 'status_id')
-        //                                  ->get();
-        // $licenses = DB::table('licenses')->where('user_id', Auth::id())
-        //                                  ->select('id', 'name', 'genre_id', 'grade_id', 'exam_date', 'fee', 'status_id')
-        //                                  ->paginate(20);
-
-
         $licenses = License::searchLicenses($request->search)
             ->where('user_id', Auth::id())
             ->select('id', 'name', 'genre_id', 'grade_id', 'exam_date', 'fee', 'status_id')
             ->paginate(20);
-            // dd($licenses);
-        // $genres = Genre::all();
-        // $grades = Grade::all();
-        // $statuses = Status::all();
+
+        // $licenses = License::sortAscExamDate()
+        //     ->where('user_id', Auth::id())
+        //     ->select('id', 'name', 'genre_id', 'grade_id', 'exam_date', 'fee', 'status_id')
+        //     ->orderBy('exam_date', 'desc')
+        //     ->paginate(20);
+
+        // $licenses = License::sortDescExamDate()
+        //     ->where('user_id', Auth::id())
+        //     ->select('id', 'name', 'genre_id', 'grade_id', 'exam_date', 'fee', 'status_id')
+        //     ->orderBy('exam_date', 'desc')
+        //     ->paginate(20);
+
 
         $genres = DB::table('genres')->select('id', 'name')->get();
         $grades = DB::table('grades')->select('id', 'level')->get();
@@ -62,6 +63,7 @@ class LicenseController extends Controller
         $genres = DB::table('genres')->select('id', 'name')->get();
         $grades = DB::table('grades')->select('id', 'level')->get();
         $statuses = DB::table('statuses')->select('id', 'plan')->get();
+        // $statuses = DB::table('statuses')->select('id', 'plan')->get();
 
         return Inertia::render('License/Create',
             [
@@ -88,6 +90,7 @@ class LicenseController extends Controller
             'exam_date' => $request->exam_date,
             'fee' => $request->fee,
             'status_id' => $request->status_id,
+            'memo' => $request->memo,
         ]);
 
         return to_route('licenses.index');
@@ -153,6 +156,7 @@ class LicenseController extends Controller
         $license->exam_date = $request->exam_date;
         $license->fee = $request->fee;
         $license->status_id = $request->status_id;
+        $license->memo = $request->memo;
         $license->save();
 
         return to_route('licenses.index')

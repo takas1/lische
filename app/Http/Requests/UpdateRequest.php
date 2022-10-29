@@ -24,12 +24,12 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'genre_id' => ['numeric', 'between:1,6'],
+            'genre_id' => ['required', 'numeric', 'between:1,6'],
             'name' => ['required', 'max:40'],
-            'grade_id' => ['numeric', 'between:1,5'],
+            'grade_id' => ['required', 'numeric', 'between:1,6'],
             'exam_date' => ['nullable', 'date'],
             'fee' => ['nullable', 'numeric', 'between:0,500000'],
-            'status_id' => ['numeric', 'between:1,3'],
+            'status_id' => ['required', 'numeric', 'between:1,3'],
         ];
     }
 }

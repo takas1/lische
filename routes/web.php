@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\LicenseController;
+use App\Http\Controllers\SortController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,23 +17,19 @@ use App\Http\Controllers\LicenseController;
 |
 */
 
-// Route::get('/license', function () {
-//     return Inertia::render('License/Index');
-// });
 Route::resource('licenses', LicenseController::class)->middleware(['auth', 'verified']);
-
+Route::get('/take', [ SortController::class, 'index' ])->middleware(['auth', 'verified'])->name('sorted.index');
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+    return Inertia::render('Welcome');
+})->middleware('guest');
 
 Route::get('/home', function () {
     return Inertia::render('Home');

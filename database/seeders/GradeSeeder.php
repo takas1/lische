@@ -21,6 +21,7 @@ class GradeSeeder extends Seeder
            [ 'level' => 'アドバンス'],
            [ 'level' => 'エキスパート'],
            [ 'level' => 'その他'],
+           [ 'level' => 'なし'],
         ]);
     }
 }

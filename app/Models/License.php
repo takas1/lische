@@ -16,11 +16,23 @@ class License extends Model
     public function scopeSearchLicenses($query, $input = null)
     {
         if (!empty($input)) {
-            if (License::where('name', 'like', $input . '%')
+            if (License::where('name', 'like', '%' . $input . '%')
                 ->exists()) {
-                    return $query->where('name', 'like', $input . '%');
+                    return $query->where('name', 'like', '%' . $input . '%');
             }
         }
+    }
+
+    public function scopeSortAscExamDate($query)
+    {
+        return $query->whereNotNull('exam_date')
+                     ->orderBy('exam_date', 'asc');
+    }
+
+    public function scopeSortDescExamDate($query)
+    {
+        return $query->whereNotNull('exam_date')
+                     ->orderBy('exam_date', 'desc');
     }
 
     protected $fillable = [
@@ -30,7 +42,8 @@ class License extends Model
         'grade_id',
         'exam_date',
         'fee',
-        'status_id'
+        'status_id',
+        'memo'
     ];
 
     public function genre()
