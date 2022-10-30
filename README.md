@@ -1,3 +1,30 @@
+## webアプリ「lische」について
+
+licenseとscheduleの造語です。
+受験を検討中の資格試験を整理するためのアプリです。
+
+webエンジニアになるために、転職活動用のポートフォリオとして作成しました。
+
+## 開発環境
+
+WSL2のlaravel sailで環境構築しています。
+
+- PHP 8.1.2
+- composer 2.3.7
+- Laravel 9.36.3
+- vue 3.2.41
+- Inertia
+
+## ログイン用のダミーデータ
+
+sail artisan migrate:fresh --seed
+
+でダミーデータを作成していただくと、下記のユーザー情報でログインできます。
+
+メール：test@mail.com
+パスワード:pass1234
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
